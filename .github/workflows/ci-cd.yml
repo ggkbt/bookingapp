@@ -33,7 +33,7 @@ jobs:
 
       - name: Build docker image
         run: |
-          docker build . --file room_service/Dockerfile --tag room-service:latest
+          docker build . --file room_service/Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/room-service:latest
 
       - name: Push tag to DockerHub
         run: |
