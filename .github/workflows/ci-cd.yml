@@ -31,11 +31,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: room-service/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/room-service:latest
+      - name: Build docker image
+        run: |
+          docker build . --file room_service/Dockerfile --tag room-service-test:latest
+
+      - name: Push tag to DockerHub
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/room-service:latest
 
