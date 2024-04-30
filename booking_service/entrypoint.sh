@@ -1,3 +1,3 @@
 #!/bin/sh
 
-uvicorn booking_service.main:app --host 0.0.0.0
+uvicorn booking_service.main:app
