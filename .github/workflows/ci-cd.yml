@@ -86,7 +86,7 @@ jobs:
           revision-env: |
             AMQP_URL=${{ secrets.ENV_AMQP_URL }}
             POSTGRES_URL=${{ secrets.ENV_POSTGRES_URL }}
-            ROOM_SERVICE_URL${{ secrets.ROOM_SERVICE_URL }}
+            ROOM_SERVICE_URL=${{ secrets.ROOM_SERVICE_URL }}
             POSTGRES_DRIVERNAME=${{ secrets.POSTGRES_DRIVERNAME }}
             POSTGRES_USER=${{ secrets.POSTGRES_USER }}
             POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
