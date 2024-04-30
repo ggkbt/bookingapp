@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Upgrade pip if neccesary
+      - name: Upgrade pip if necessary
         run: |
           python -m pip install --upgrade pip
 
@@ -38,4 +38,35 @@ jobs:
       - name: Push tag to DockerHub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/room-service:latest
+
+  build_and_push_yc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Upgrade pip if necessary
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Build docker image
+        run: |
+          docker build . --file booking_service/Dockerfile --tag cr.yandex/${{ secrets.YC_REGISTRY_ID }}/booking-service:latest
+
+      - name: Login to YC Registry
+        uses: docker/login-action@v3.0.0
+        with:
+          registry: cr.yandex
+          username: json_key
+          password: ${{ secrets.YC_KEYS }}
+
+      - name: Push tag to YC Registry
+        run: |
+          docker push cr.yandex/${{ secrets.YC_REGISTRY_ID }}/booking-service:latest 
 
