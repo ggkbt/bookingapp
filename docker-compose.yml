@@ -14,7 +14,7 @@ services:
       - AMQP_URL=amqp://guest:guest@172.17.0.1:5672/
       - POSTGRES_URL=postgresql://postgres:mysecretpassword2@172.17.0.1:5433/booking_database
       - ROOM_SERVICE_URL=http://172.17.0.1:8001/api
-      - PORT=8000
+      - SERVICE_PORT=8000
 
   room_service:
     build:
@@ -28,4 +28,4 @@ services:
     environment:
       - AMQP_URL=amqp://guest:guest@172.17.0.1:5672/
       - POSTGRES_URL=postgresql://postgres:mysecretpassword@172.17.0.1:5432/room_database
-      - PORT=8001
+      - SERVICE_PORT=8001
