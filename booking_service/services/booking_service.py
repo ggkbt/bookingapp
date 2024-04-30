@@ -6,7 +6,7 @@ from uuid import UUID, uuid4
 import requests
 from fastapi import Depends, HTTPException
 
-from booking_service.settings import settings
+import booking_service.settings
 from booking_service import rabbitmq
 from booking_service.models.booking import Booking, BookingStatuses
 from booking_service.repositories.db_booking_repo import BookingRepo
@@ -22,7 +22,7 @@ class BookingService:
         return self.booking_repo.get_bookings()
 
     def create_booking(self, room_id: UUID, start_date: date, end_date: date) -> Booking:
-        url = f"{settings.room_service_url}/rooms/{room_id}/book"
+        url = f"{booking_service.settings.settings.room_service_url}/rooms/{room_id}/book"
         data = {
             "start_date": start_date.isoformat(),
             "end_date": end_date.isoformat()
