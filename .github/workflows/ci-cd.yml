@@ -86,3 +86,4 @@ jobs:
           revision-env: |
             AMQP_URL=${{ secrets.ENV_AMQP_URL }}
             POSTGRES_URL=${{ secrets.ENV_POSTGRES_URL }}
+            PORT=8001
