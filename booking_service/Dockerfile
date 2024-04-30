@@ -16,6 +16,6 @@ COPY /booking_service/entrypoint.sh /booking/entrypoint.sh
 
 RUN chmod +x /booking/entrypoint.sh
 
-EXPOSE 8000
+EXPOSE 8080
 
 ENTRYPOINT ["/booking/entrypoint.sh"]
