@@ -40,8 +40,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push room-service tag to DockerHub
-          run: |
-            docker push ${{ secrets.DOCKER_USERNAME }}/room-service:latest
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/room-service:latest
 
       - name: Login to YC Registry
         uses: docker/login-action@v3.0.0
