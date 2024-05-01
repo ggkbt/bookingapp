@@ -16,6 +16,6 @@ COPY /room_service/entrypoint.sh /room/entrypoint.sh
 
 RUN chmod +x /room/entrypoint.sh
 
-EXPOSE 8001
+EXPOSE 8080
 
 ENTRYPOINT ["/room/entrypoint.sh"]
