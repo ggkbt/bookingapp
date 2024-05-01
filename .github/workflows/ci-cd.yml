@@ -81,18 +81,18 @@ jobs:
             POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
             POSTGRES_DATABASE=${{ secrets.POSTGRES_BOOKING_DATABASE }}
       - name: Deploy room-service serverless container
-          uses: yc-actions/yc-sls-container-deploy@v1
-          with:
-            yc-sa-json-credentials: ${{ secrets.YC_KEYS }}
-            container-name: ${{ secrets.YC_ROOM_SERVICE_CONTAINER_NAME }}
-            folder-id: ${{ secrets.YC_FOLDER_ID }}
-            revision-image-url: cr.yandex/${{ secrets.YC_REGISTRY_ID }}/room-service:latest
-            revision-service-account-id: ${{ secrets.YC_SA_ID }}
-            revision-env: |
-              AMQP_URL=${{ secrets.ENV_AMQP_URL }}
-              POSTGRES_DRIVERNAME=${{ secrets.POSTGRES_DRIVERNAME }}
-              POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-              POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-              POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
-              POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
-              POSTGRES_DATABASE=${{ secrets.POSTGRES_ROOM_SERVICE_DATABASE }}
+        uses: yc-actions/yc-sls-container-deploy@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_KEYS }}
+          container-name: ${{ secrets.YC_ROOM_SERVICE_CONTAINER_NAME }}
+          folder-id: ${{ secrets.YC_FOLDER_ID }}
+          revision-image-url: cr.yandex/${{ secrets.YC_REGISTRY_ID }}/room-service:latest
+          revision-service-account-id: ${{ secrets.YC_SA_ID }}
+          revision-env: |
+            AMQP_URL=${{ secrets.ENV_AMQP_URL }}
+            POSTGRES_DRIVERNAME=${{ secrets.POSTGRES_DRIVERNAME }}
+            POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
+            POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
+            POSTGRES_DATABASE=${{ secrets.POSTGRES_ROOM_SERVICE_DATABASE }}
