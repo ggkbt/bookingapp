@@ -78,7 +78,7 @@ def test_confirm_booking(
         booking_service: BookingService
 ) -> None:
     bookings = booking_service.get_bookings()
-    booking = await booking_service.confirm_booking(bookings[0].id)
+    booking = booking_service.confirm_booking(bookings[0].id)
     assert booking.status == BookingStatuses.CONFIRMED
 
 
@@ -93,7 +93,7 @@ def test_complete_booking(
         booking_service: BookingService
 ) -> None:
     bookings = booking_service.get_bookings()
-    booking = await booking_service.complete_booking(bookings[0].id)
+    booking = booking_service.complete_booking(bookings[0].id)
     assert booking.status == BookingStatuses.COMPLETED
 
 
