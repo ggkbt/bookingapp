@@ -70,7 +70,7 @@ def test_get_bookings_full(
 def test_confirm_booking_not_found(
         booking_service: BookingService
 ) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         booking_service.confirm_booking(uuid4())
 
 
@@ -85,7 +85,7 @@ def test_confirm_booking(
 def test_complete_booking_not_found(
         booking_service: BookingService
 ) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         booking_service.complete_booking(uuid4())
 
 
@@ -124,7 +124,7 @@ def test_confirm_completed_booking_status_error(
 def test_cancel_booking_not_found(
         booking_service: BookingService
 ) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(KeyError):
         booking_service.cancel_booking(uuid4())
 
 
