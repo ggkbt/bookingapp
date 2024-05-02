@@ -7,7 +7,6 @@ from uuid import UUID, uuid4
 from datetime import date
 
 from booking_service.models.booking import Booking, BookingStatuses
-from booking_service.services.booking_service import BookingService
 
 time.sleep(5)
 base_url = 'http://localhost:8080/api'
@@ -143,8 +142,7 @@ def test_complete_booking(
 
 
 def test_get_booking_by_id(
-        first_booking_data: tuple[UUID, UUID, date, date],
-        booking_service: BookingService
+        first_booking_data: tuple[UUID, UUID, date, date]
 ) -> None:
     booking_id = first_booking_data[0]
     response = requests.get(f'{base_url}/bookings/{booking_id}')

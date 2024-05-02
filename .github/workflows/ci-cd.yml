@@ -35,7 +35,7 @@ jobs:
           sudo docker build . --file room_service/Dockerfile --tag room-back-tests
           sudo docker run -p 8001:80 -e AMQP_URL=${{ secrets.ENV_AMQP_URL }} -e POSTGRES_DRIVERNAME=postgresql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_HOST=172.17.0.1 -e POSTGRES_PORT=5432 -e POSTGRES_DATABASE=postgres -d room-back-tests
           sleep 5
-          sudo docker run -p 8000:80 -e AMQP_URL=${{ secrets.ENV_AMQP_URL }} -e ROOM_SERVICE_URL=http://172.17.0.1:8001/api -e POSTGRES_DRIVERNAME=postgresql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_HOST=172.17.0.1 -e POSTGRES_PORT=5432 -e POSTGRES_DATABASE=postgres -d booking-back-tests
+          sudo docker run -p 8080:80 -e AMQP_URL=${{ secrets.ENV_AMQP_URL }} -e ROOM_SERVICE_URL=http://172.17.0.1:8001/api -e POSTGRES_DRIVERNAME=postgresql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_HOST=172.17.0.1 -e POSTGRES_PORT=5432 -e POSTGRES_DATABASE=postgres -d booking-back-tests
 
       - name: Run e2e tests
         run: |
