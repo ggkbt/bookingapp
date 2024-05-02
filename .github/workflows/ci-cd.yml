@@ -23,7 +23,7 @@ jobs:
 
       - name: Run unit tests
         run: |
-          pytest ./booking-service/tests/unit
+          pytest booking-service/tests/unit
 
       - name: Prepare db
         run: |
@@ -39,7 +39,7 @@ jobs:
 
       - name: Run e2e tests
         run: |
-          pytest ./booking-service/tests/e2e
+          pytest booking-service/tests/e2e
 
   build_and_push_yc:
     name: Build and push to Yandex Cloud
