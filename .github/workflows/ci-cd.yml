@@ -26,8 +26,8 @@ jobs:
           pytest ./booking-service/tests/unit
 
       - name: Prepare db
-          run: |
-            sudo docker run -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:14
+        run: |
+          sudo docker run -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:14
 
       - name: Prepare e2e tests
         run: |
