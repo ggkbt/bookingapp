@@ -61,10 +61,10 @@ def test_get_bookings_full(
     assert len(bookings) == 2
     assert bookings[0].room_id == first_booking_data[0]
     assert bookings[0].start_date == first_booking_data[1]
-    assert bookings[0].start_date == first_booking_data[2]
+    assert bookings[0].end_date == first_booking_data[2]
     assert bookings[1].room_id == second_booking_data[0]
     assert bookings[1].start_date == second_booking_data[1]
-    assert bookings[1].start_date == second_booking_data[2]
+    assert bookings[1].end_date == second_booking_data[2]
 
 
 def test_confirm_booking_not_found(
