@@ -24,19 +24,8 @@ class BookingService:
     def create_booking(self, room_id: UUID, start_date: date, end_date: date) -> Booking:
         if start_date >= end_date:
             raise ValueError(f"Start date {start_date} must be before end date {end_date}.")
-        url = f"{booking_service.settings.settings.room_service_url}/rooms/{room_id}/book"
-        data = {
-            "start_date": start_date.isoformat(),
-            "end_date": end_date.isoformat()
-        }
-        response = requests.post(url, json=data)
-        if response.status_code == 200:
-            booking = Booking(id=uuid4(), room_id=room_id, start_date=start_date, end_date=end_date,
-                              status=BookingStatuses.CREATED)
-            return self.booking_repo.create_booking(booking)
-        else:
-            detail = response.json().get('detail', 'Failed to book room')
-            raise HTTPException(status_code=response.status_code, detail=detail)
+
+        return self.booking_repo.create_booking(room_id=room_id, start_date=start_date, end_date=end_date)
 
     async def cancel_booking(self, booking_id: UUID) -> Booking:
         booking = self.booking_repo.get_booking_by_id(booking_id)
