@@ -1,9 +1,8 @@
 # /booking_service/models/booking.py
 
-from __future__ import annotations
-
 import enum
 from datetime import date
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict
@@ -33,7 +32,7 @@ class CreateBookingRequest(BaseModel):
 
 
 class UpdateBookingRequest(BaseModel):
-    room_id: UUID | None = None
-    start_date: date | None = None
-    end_date: date | None = None
-    status: BookingStatuses | None = None
+    room_id: Optional[UUID] = None
+    start_date: Optional[date] = None
+    end_date: Optional[date] = None
+    status: Optional[BookingStatuses] = None

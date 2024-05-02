@@ -134,7 +134,7 @@ def test_cancel_booking_not_found(
         booking_service.cancel_booking(uuid4())
 
 
-def test_cancel_booking(
+async def test_cancel_booking(
         second_booking_data: tuple[UUID, UUID, date, date],
         booking_service: BookingService
 ) -> None:
