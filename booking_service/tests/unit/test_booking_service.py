@@ -155,6 +155,6 @@ def test_confirm_canceled_booking_status_error(
 def test_complete_canceled_booking_status_error(
         booking_service: BookingService
 ) -> None:
-    bookings = booking_service.get_bookings()
+    bookings = booking_service.get_bookings()#
     with pytest.raises(ValueError):
         booking_service.complete_booking(bookings[1].id)
