@@ -9,9 +9,42 @@ on:
       - master
 
 jobs:
-  build_and_push_yc:
+  test:
+    name: Run tests
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
+      - name: Prepare unit tests
+        run: |
+          sudo apt update
+          sudo apt install -y python3-pip
+          pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: |
+          pytest ./booking-service/tests/unit
+
+      - name: Prepare db
+          run: |
+            sudo docker run -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:14
+
+      - name: Prepare e2e tests
+        run: |
+          sudo docker build . --file booking-service/Dockerfile --tag booking-back-tests
+          sudo docker build . --file room-service/Dockerfile --tag room-back-tests
+          sudo docker run -p 8001:80 -e AMQP_URL=${{ secrets.ENV_AMQP_URL }} -e POSTGRES_DRIVERNAME=postgresql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_HOST=172.17.0.1 -e POSTGRES_PORT=5432 -e POSTGRES_DATABASE=postgres -d room-back-tests
+          sleep 5
+          sudo docker run -p 8000:80 -e AMQP_URL=${{ secrets.ENV_AMQP_URL }} -e ROOM_SERVICE_URL=http://172.17.0.1:8001/api -e POSTGRES_DRIVERNAME=postgresql -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_HOST=172.17.0.1 -e POSTGRES_PORT=5432 -e POSTGRES_DATABASE=postgres -d booking-back-tests
+
+      - name: Run e2e tests
+        run: |
+          pytest ./booking-service/tests/e2e
+
+  build_and_push_yc:
+    name: Build and push to Yandex Cloud
+    runs-on: ubuntu-latest
+    needs: [test]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -59,7 +92,7 @@ jobs:
           docker push cr.yandex/${{ secrets.YC_REGISTRY_ID }}/room-service:latest 
 
   deploy:
-    name: Deploy
+    name: Deploy to Yandex Cloud
     runs-on: ubuntu-latest
     needs: [ build_and_push_yc ]
     steps:

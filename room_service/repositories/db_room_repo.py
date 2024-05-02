@@ -62,7 +62,6 @@ class RoomRepo:
         if overlapping_periods:
             raise ValueError("Room is unavailable on selected dates")
 
-        # Если пересечений нет, добавляем новый период недоступности
         try:
             new_period = BookedPeriod(room_id=room_id, start_date=start_date, end_date=end_date)
             self.db.add(new_period)

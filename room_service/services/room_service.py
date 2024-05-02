@@ -26,6 +26,8 @@ class RoomService:
         return self.room_repo.free_room_period(room_id, start_date, end_date)
 
     def book_room(self, room_id, start_date: date, end_date: date) -> Room:
+        if start_date >= end_date:
+            raise ValueError(f"Start date {start_date} must be before end date {end_date}.")
         return self.room_repo.book_room_period(room_id, start_date, end_date)
 
     def add_demo_rooms_if_empty(self):

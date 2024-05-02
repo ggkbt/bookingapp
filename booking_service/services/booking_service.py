@@ -22,6 +22,8 @@ class BookingService:
         return self.booking_repo.get_bookings()
 
     def create_booking(self, room_id: UUID, start_date: date, end_date: date) -> Booking:
+        if start_date >= end_date:
+            raise ValueError(f"Start date {start_date} must be before end date {end_date}.")
         url = f"{booking_service.settings.settings.room_service_url}/rooms/{room_id}/book"
         data = {
             "start_date": start_date.isoformat(),
