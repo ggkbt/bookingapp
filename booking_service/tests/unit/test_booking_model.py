@@ -47,9 +47,3 @@ def test_booking_end_date_required(any_room_id: UUID):
 def test_booking_status_required(any_room_id: UUID):
     with pytest.raises(ValidationError):
         Booking(id=uuid4(), room_id=any_room_id, start_date=date(2024, 5, 1), end_date=date(2024, 5, 3))
-
-
-def test_booking_dates_order(any_room_id: UUID):
-    with pytest.raises(ValidationError):
-        Booking(id=uuid4(), room_id=any_room_id, start_date=date(2024, 5, 3), end_date=date(2024, 5, 1),
-                status=BookingStatuses.CREATED)

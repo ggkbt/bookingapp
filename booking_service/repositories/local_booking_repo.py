@@ -6,14 +6,15 @@ from booking_service.models.booking import Booking
 bookings: list[Booking] = []
 
 
-def get_bookings() -> list[Booking]:
-    return bookings
-
-
 class BookingRepo:
     def __init__(self, clear: bool = False) -> None:
         if clear:
             bookings.clear()
+
+
+    def get_bookings(self) -> list[Booking]:
+        return bookings
+
 
     def get_booking_by_id(self, id: UUID) -> Booking:
         for b in bookings:
