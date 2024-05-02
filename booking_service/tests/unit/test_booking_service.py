@@ -97,12 +97,12 @@ def test_complete_booking(
     assert booking.status == BookingStatuses.COMPLETED
 
 
-def test_cancel_completed_booking_status_error(
+async def test_cancel_completed_booking_status_error(
         booking_service: BookingService
 ) -> None:
     bookings = booking_service.get_bookings()
     with pytest.raises(ValueError):
-        booking_service.cancel_booking(bookings[0].id)
+        await booking_service.cancel_booking(bookings[0].id)
 
 
 def test_complete_completed_booking_status_error(
@@ -121,11 +121,11 @@ def test_confirm_completed_booking_status_error(
         booking_service.confirm_booking(bookings[0].id)
 
 
-def test_cancel_booking_not_found(
+async def test_cancel_booking_not_found(
         booking_service: BookingService
 ) -> None:
     with pytest.raises(KeyError):
-        booking_service.cancel_booking(uuid4())
+        await booking_service.cancel_booking(uuid4())
 
 
 async def test_cancel_booking(
@@ -136,12 +136,12 @@ async def test_cancel_booking(
     assert booking.status == BookingStatuses.CANCELED
 
 
-def test_cancel_canceled_booking_status_error(
+async def test_cancel_canceled_booking_status_error(
         booking_service: BookingService
 ) -> None:
     bookings = booking_service.get_bookings()
     with pytest.raises(ValueError):
-        booking_service.cancel_booking(bookings[1].id)
+        await booking_service.cancel_booking(bookings[1].id)
 
 
 def test_confirm_canceled_booking_status_error(
