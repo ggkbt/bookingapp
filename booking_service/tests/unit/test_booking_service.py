@@ -47,7 +47,7 @@ def test_create_first_booking_again_error(
 ) -> None:
     booking_id, room_id, start_date, end_date = first_booking_data
     with pytest.raises(ValueError):
-        await booking_service.create_booking(booking_id, room_id, start_date, end_date)
+        booking_service.create_booking(booking_id, room_id, start_date, end_date)
 
 
 def test_create_second_booking(
