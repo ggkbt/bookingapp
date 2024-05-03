@@ -35,8 +35,8 @@ def test_add_booking_first_success(
 ) -> None:
     booking_id, start_date, end_date = first_booking_data
     response = requests.post(f'{base_url}/bookings', json={
-        'id': booking_id,
-        'room_id': str(rooms[0].id),
+        'id': booking_id.hex,
+        'room_id': rooms[0].id.hex,
         'start_date': str(start_date),
         'end_date': str(end_date)
     })
@@ -53,8 +53,8 @@ def test_add_booking_first_repeat_error(
 ) -> None:
     booking_id, start_date, end_date = first_booking_data
     response = requests.post(f'{base_url}/bookings', json={
-        'id': booking_id,
-        'room_id': str(rooms[0].id),
+        'id': booking_id.hex,
+        'room_id': rooms[0].id.hex,
         'start_date': str(start_date),
         'end_date': str(end_date)
     })
@@ -66,7 +66,7 @@ def test_add_booking_first_same_dates_error(
 ) -> None:
     booking_id, start_date, end_date = first_booking_data
     response = requests.post(f'{base_url}/bookings', json={
-        'room_id': str(rooms[0].id),
+        'room_id': rooms[0].id.hex,
         'start_date': str(start_date),
         'end_date': str(end_date)
     })
@@ -75,7 +75,7 @@ def test_add_booking_first_same_dates_error(
 
 def test_add_booking_end_date_before_start_date_error() -> None:
     response = requests.post(f'{base_url}/bookings', json={
-        'room_id': str(rooms[0].id),
+        'room_id': rooms[0].id.hex,
         'start_date': str(date(2024, 5, 10)),
         'end_date': str(date(2024, 5, 1))
     })
@@ -87,8 +87,8 @@ def test_add_booking_second_success(
 ) -> None:
     booking_id, start_date, end_date = second_booking_data
     response = requests.post(f'{base_url}/bookings', json={
-        'id': booking_id,
-        'room_id': str(rooms[1].id),
+        'id': booking_id.hex,
+        'room_id': rooms[1].id.hex,
         'start_date': str(start_date),
         'end_date': str(end_date)
     })
