@@ -2,10 +2,9 @@
 
 import enum
 from datetime import date
-from typing import Optional
-from uuid import UUID
+from uuid import UUID, uuid4
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class BookingStatuses(enum.Enum):
@@ -26,13 +25,7 @@ class Booking(BaseModel):
 
 
 class CreateBookingRequest(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
     room_id: UUID
     start_date: date
     end_date: date
-
-
-class UpdateBookingRequest(BaseModel):
-    room_id: Optional[UUID] = None
-    start_date: Optional[date] = None
-    end_date: Optional[date] = None
-    status: Optional[BookingStatuses] = None

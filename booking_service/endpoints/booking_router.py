@@ -20,7 +20,7 @@ def read_bookings(booking_service: BookingService = Depends(BookingService)) -> 
 def add_booking(booking_data: CreateBookingRequest,
                 booking_service: BookingService = Depends(BookingService)) -> Booking:
     try:
-        booking = booking_service.create_booking(booking_data.room_id, booking_data.start_date, booking_data.end_date)
+        booking = booking_service.create_booking(booking_data.id, booking_data.room_id, booking_data.start_date, booking_data.end_date)
         return booking
     except KeyError as e:
         raise HTTPException(status_code=400, detail=str(e))

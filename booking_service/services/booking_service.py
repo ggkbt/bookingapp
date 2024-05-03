@@ -21,11 +21,11 @@ class BookingService:
     def get_bookings(self) -> list[Booking]:
         return self.booking_repo.get_bookings()
 
-    def create_booking(self, room_id: UUID, start_date: date, end_date: date) -> Booking:
+    def create_booking(self, id: UUID, room_id: UUID, start_date: date, end_date: date) -> Booking:
         if start_date >= end_date:
-            raise ValueError(f"Start date {start_date} must be before end date {end_date}.")
+            raise HTTPException(status_code=400, detail=f"Start date {start_date} must be before end date {end_date}.")
 
-        return self.booking_repo.create_booking(room_id=room_id, start_date=start_date, end_date=end_date)
+        return self.booking_repo.create_booking(id=id, room_id=room_id, start_date=start_date, end_date=end_date)
 
     async def cancel_booking(self, booking_id: UUID) -> Booking:
         booking = self.booking_repo.get_booking_by_id(booking_id)

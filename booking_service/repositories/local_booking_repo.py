@@ -1,6 +1,7 @@
 # /booking_service/repositories/local_booking_repo.py
 from datetime import date
-from uuid import UUID, uuid4
+from uuid import UUID
+
 from booking_service.models.booking import Booking, BookingStatuses
 
 bookings: list[Booking] = []
@@ -21,8 +22,8 @@ class BookingRepo:
 
         raise KeyError("Booking not found")
 
-    def create_booking(self, room_id: UUID, start_date: date, end_date: date) -> Booking:
-        booking = Booking(id=uuid4(), room_id=room_id, start_date=start_date, end_date=end_date,
+    def create_booking(self, id: UUID, room_id: UUID, start_date: date, end_date: date) -> Booking:
+        booking = Booking(id=id, room_id=room_id, start_date=start_date, end_date=end_date,
                           status=BookingStatuses.CREATED)
         bookings.append(booking)
         return booking
