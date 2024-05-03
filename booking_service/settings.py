@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     postgres_host: str
     postgres_port: str
     postgres_database: str
+    service_port: str
 
     model_config = SettingsConfigDict(env_file='bookings.env')
 
