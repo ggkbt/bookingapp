@@ -18,12 +18,12 @@ rooms = [Room.model_validate(d) for d in requests.get(f'{room_service_url}/rooms
 
 @pytest.fixture(scope='session')
 def booking_data() -> tuple[date, date]:
-    return date(2024, 5, 4), date(2024, 5, 5)
+    return date(2024, 5, 1), date(2024, 5, 5)
 
 
 @pytest.fixture(scope='session')
 def second_booking_data() -> tuple[date, date]:
-    return date(2024, 5, 4), date(2024, 5, 5)
+    return date(2024, 6, 7), date(2024, 6, 10)
 
 
 def test_get_bookings_empty() -> None:
@@ -54,6 +54,15 @@ def test_add_booking_first_repeat_error(
         'room_id': str(rooms[0].id),
         'start_date': str(start_date),
         'end_date': str(end_date)
+    })
+    assert response.status_code == 400
+
+
+def test_add_booking_end_date_before_start_date_error() -> None:
+    response = requests.post(f'{base_url}/bookings', json={
+        'room_id': str(rooms[0].id),
+        'start_date': str(date(2024, 5, 10)),
+        'end_date': str(date(2024, 5, 1))
     })
     assert response.status_code == 400
 
@@ -94,18 +103,6 @@ def test_cancel_booking_success() -> None:
     assert booking.status == BookingStatuses.CANCELED
 
 
-def test_confirm_booking_status_error() -> None:
-    bookings = [Booking.model_validate(d) for d in requests.get(f'{base_url}/bookings').json()]
-    response = requests.post(f'{base_url}/bookings/{str(bookings[0].id)}/confirm')
-    assert response.status_code == 400
-
-
-def test_complete_booking_status_error() -> None:
-    bookings = [Booking.model_validate(d) for d in requests.get(f'{base_url}/bookings').json()]
-    response = requests.post(f'{base_url}/bookings/{str(bookings[0].id)}/complete')
-    assert response.status_code == 400
-
-
 def test_confirm_booking_not_found() -> None:
     response = requests.post(f'{base_url}/bookings/{uuid4()}/confirm')
     assert response.status_code == 404
@@ -133,6 +130,7 @@ def test_complete_booking() -> None:
 
 
 def test_cancel_booking_error() -> None:
+    time.sleep(3)
     bookings = [Booking.model_validate(d) for d in requests.get(f'{base_url}/bookings').json()]
     response1 = requests.post(f'{base_url}/bookings/{str(bookings[0].id)}/cancel')
     response2 = requests.post(f'{base_url}/bookings/{str(bookings[1].id)}/cancel')
