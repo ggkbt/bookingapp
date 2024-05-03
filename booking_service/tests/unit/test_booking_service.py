@@ -62,7 +62,7 @@ def test_get_bookings_full(
     bookings = booking_service.get_bookings()
     assert len(bookings) == 2
     assert bookings[0].id == first_booking_data[0]
-    assert bookings[1].start_date == second_booking_data[0]
+    assert bookings[1].id == second_booking_data[0]
 
 
 def test_confirm_booking_not_found(
