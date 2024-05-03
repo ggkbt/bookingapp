@@ -41,6 +41,15 @@ def test_create_first_booking(
     assert booking.status == BookingStatuses.CREATED
 
 
+def test_create_first_booking_again_error(
+        first_booking_data: tuple[UUID, UUID, date, date],
+        booking_service: BookingService
+) -> None:
+    booking_id, room_id, start_date, end_date = first_booking_data
+    with pytest.raises(ValueError):
+        await booking_service.create_booking(booking_id, room_id, start_date, end_date)
+
+
 def test_create_second_booking(
         second_booking_data: tuple[UUID, UUID, date, date],
         booking_service: BookingService

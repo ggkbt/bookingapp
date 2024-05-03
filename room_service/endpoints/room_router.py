@@ -19,7 +19,7 @@ def read_rooms(room_service: RoomService = Depends(RoomService)) -> List[Room]:
 @room_router.post('/', response_model=Room)
 def add_room(room_data: CreateRoomRequest, room_service: RoomService = Depends(RoomService)) -> Room:
     try:
-        room = room_service.create_room(room_data.room_number)
+        room = room_service.create_room(room_data.id, room_data.room_number)
         return room
     except KeyError as e:
         raise HTTPException(status_code=400, detail=str(e))

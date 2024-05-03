@@ -18,9 +18,8 @@ class RoomService:
     def get_rooms(self) -> List[Room]:
         return self.room_repo.get_rooms()
 
-    def create_room(self, room_number: str) -> Room:
-        room = Room(id=uuid4(), room_number=room_number)
-        return self.room_repo.create_room(room)
+    def create_room(self, room_id: UUID, room_number: str) -> Room:
+        return self.room_repo.create_room(room_id=room_id, room_number=room_number)
 
     def free_room_period(self, room_id: UUID, start_date: date, end_date: date) -> bool:
         return self.room_repo.free_room_period(room_id, start_date, end_date)

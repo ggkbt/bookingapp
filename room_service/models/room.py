@@ -2,9 +2,9 @@
 
 from datetime import date
 from typing import Optional
-from uuid import UUID
+from uuid import UUID, uuid4
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Room(BaseModel):
@@ -15,6 +15,7 @@ class Room(BaseModel):
 
 
 class CreateRoomRequest(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
     room_number: str
 
 

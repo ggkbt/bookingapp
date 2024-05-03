@@ -37,8 +37,9 @@ class RoomRepo:
             raise KeyError("Room not found")
         return self._map_to_model(room)
 
-    def create_room(self, room: Room) -> Room:
+    def create_room(self, room_id: UUID, room_number: str) -> Room:
         try:
+            room = Room(id=room_id, room_number=room_number)
             db_room = self._map_to_schema(room)
             self.db.add(db_room)
             self.db.commit()
