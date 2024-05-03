@@ -1,12 +1,10 @@
 # /booking_service/services/booking_service.py
 
 from datetime import date
-from uuid import UUID, uuid4
+from uuid import UUID
 
-import requests
 from fastapi import Depends, HTTPException
 
-import booking_service.settings
 from booking_service import rabbitmq
 from booking_service.models.booking import Booking, BookingStatuses
 from booking_service.repositories.db_booking_repo import BookingRepo
