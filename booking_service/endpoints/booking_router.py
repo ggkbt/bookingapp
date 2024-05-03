@@ -31,6 +31,8 @@ async def cancel_booking(booking_id: UUID, booking_service: BookingService = Dep
     try:
         booking = await booking_service.cancel_booking(booking_id)
         return booking
+    except KeyError:
+        raise HTTPException(404, f'Booking with id={id} not found')
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -40,6 +42,8 @@ def confirm_booking(booking_id: UUID, booking_service: BookingService = Depends(
     try:
         booking = booking_service.confirm_booking(booking_id)
         return booking
+    except KeyError:
+        raise HTTPException(404, f'Booking with id={id} not found')
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -49,6 +53,8 @@ def complete_booking(booking_id: UUID, booking_service: BookingService = Depends
     try:
         booking = booking_service.complete_booking(booking_id)
         return booking
+    except KeyError:
+        raise HTTPException(404, f'Booking with id={id} not found')
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
