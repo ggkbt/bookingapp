@@ -33,7 +33,6 @@ class RoomService:
         if self.room_repo.has_no_rooms():
             room_numbers = ["101", "102", "103", "104", "105"]
             for number in room_numbers:
-                room = Room(id=uuid4(), room_number=number)
-                self.room_repo.create_room(room)
+                self.room_repo.create_room(room_id=uuid4(), room_number=number)
             return True
         return False
