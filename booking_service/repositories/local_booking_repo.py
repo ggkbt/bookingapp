@@ -24,6 +24,12 @@ class BookingRepo:
         raise KeyError("Booking not found")
 
     def create_booking(self, id: UUID, room_id: UUID, start_date: date, end_date: date) -> Booking:
+        if start_date >= end_date:
+            raise ValueError(f"Start date {start_date} must be before end date {end_date}.")
+
+        if len([b for b in bookings if b.id == id]) > 0:
+            raise KeyError
+
         booking = Booking(id=id, room_id=room_id, start_date=start_date, end_date=end_date,
                           status=BookingStatuses.CREATED)
         bookings.append(booking)
