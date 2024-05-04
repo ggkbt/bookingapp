@@ -39,7 +39,7 @@ def test_create_room_success(first_room_data: tuple[UUID, str]) -> None:
     assert room.room_number == room_number
 
 
-def test_create_room_duplicate_id(first_room_data: tuple[UUID, str]) -> None:
+def test_create_room_duplicate_id_error(first_room_data: tuple[UUID, str]) -> None:
     room_id, room_number = first_room_data
     response = requests.post(f'{base_url}/rooms', json={
         'id': room_id.hex,
@@ -66,7 +66,7 @@ def test_read_rooms(
 ) -> None:
     response = requests.get(f'{base_url}/rooms')
     rooms = [Room.model_validate(r) for r in response.json()]
-    room_ids = {room['id'] for room in rooms}
+    room_ids = {room.id for room in rooms}
     ids_to_check = {first_room_data[0], second_room_data[0]}
     assert response.status_code == 200
     assert len(rooms) == 7

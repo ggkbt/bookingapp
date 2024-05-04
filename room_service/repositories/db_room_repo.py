@@ -47,7 +47,7 @@ class RoomRepo:
         except:
             traceback.print_exc()
             self.db.rollback()
-            raise
+            raise KeyError(f'Room with id={room_id} already exists')
 
     def book_room_period(self, room_id: UUID, start_date: date, end_date: date) -> Room:
         room = self.db.query(DBRoom).filter(DBRoom.id == room_id).first()
@@ -71,7 +71,7 @@ class RoomRepo:
         except:
             traceback.print_exc()
             self.db.rollback()
-            raise
+            raise KeyError(f'Failed to book period')
 
     def free_room_period(self, room_id: UUID, start_date: date, end_date: date):
         room = self.db.query(DBRoom).filter(DBRoom.id == room_id).first()
