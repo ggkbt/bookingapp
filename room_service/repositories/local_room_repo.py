@@ -23,7 +23,8 @@ class RoomRepo:
                 return r
         raise KeyError("Room not found")
 
-    def create_room(self, room: Room) -> Room:
+    def create_room(self, room_id: UUID, room_number: str) -> Room:
+        room = Room(id=room_id, room_number=room_number)
         if any(r.id == room.id for r in rooms):
             raise ValueError("Room with this ID already exists")
         rooms.append(room)
