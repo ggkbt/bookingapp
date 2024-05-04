@@ -36,9 +36,9 @@ def book_room(room_id: UUID, booking_data: BookRoomRequest, room_service: RoomSe
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@room_router.post('/add_demo')
-def add_demo_rooms(room_service: RoomService = Depends(RoomService)):
-    if room_service.add_demo_rooms_if_empty():
-        return {"message": "Demo rooms added"}
-    else:
-        raise HTTPException(status_code=400, detail="Already have rooms, can't create demo")
+@room_router.post('/add_demo', response_model=List[Room])
+def add_demo_rooms(room_service: RoomService = Depends(RoomService)) -> List[Room]:
+    try:
+        return room_service.add_demo_rooms_if_empty()
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))

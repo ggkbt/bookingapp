@@ -32,7 +32,9 @@ class RoomService:
     def add_demo_rooms_if_empty(self):
         if self.room_repo.has_no_rooms():
             room_numbers = ["101", "102", "103", "104", "105"]
+            added_rooms = []
             for number in room_numbers:
-                self.room_repo.create_room(room_id=uuid4(), room_number=number)
-            return True
-        return False
+                added_rooms.append(self.room_repo.create_room(room_id=uuid4(), room_number=number))
+            return added_rooms
+        else:
+            raise ValueError("Rooms already exist, cannot add demo rooms")
