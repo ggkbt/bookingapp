@@ -7,7 +7,7 @@ from datetime import date
 
 from room_service.models.room import Room
 
-base_url = 'http://localhost:8000/api/'
+base_url = 'http://localhost:8001/api/'
 
 
 @pytest.fixture(scope='session')
