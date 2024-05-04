@@ -4,7 +4,6 @@ from datetime import date
 from uuid import uuid4, UUID
 
 import pytest
-from fastapi import HTTPException
 
 from booking_service.models.booking import BookingStatuses
 from booking_service.repositories.local_booking_repo import BookingRepo
@@ -48,7 +47,7 @@ def test_create_first_booking_again_error(
         booking_service: BookingService
 ) -> None:
     booking_id, room_id, start_date, end_date = first_booking_data
-    with pytest.raises(HTTPException):
+    with pytest.raises(KeyError):
         booking_service.create_booking(booking_id, room_id, start_date, end_date)
 
 

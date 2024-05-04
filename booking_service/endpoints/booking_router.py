@@ -24,6 +24,8 @@ def add_booking(booking_data: CreateBookingRequest,
         return booking
     except KeyError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @booking_router.post('/{booking_id}/cancel', response_model=Booking)
@@ -31,8 +33,8 @@ async def cancel_booking(booking_id: UUID, booking_service: BookingService = Dep
     try:
         booking = await booking_service.cancel_booking(booking_id)
         return booking
-    except KeyError:
-        raise HTTPException(404, f'Booking with id={id} not found')
+    except KeyError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -42,8 +44,8 @@ def confirm_booking(booking_id: UUID, booking_service: BookingService = Depends(
     try:
         booking = booking_service.confirm_booking(booking_id)
         return booking
-    except KeyError:
-        raise HTTPException(404, f'Booking with id={id} not found')
+    except KeyError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -53,8 +55,8 @@ def complete_booking(booking_id: UUID, booking_service: BookingService = Depends
     try:
         booking = booking_service.complete_booking(booking_id)
         return booking
-    except KeyError:
-        raise HTTPException(404, f'Booking with id={id} not found')
+    except KeyError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -64,5 +66,5 @@ def get_booking(booking_id: UUID, booking_service: BookingService = Depends(Book
     try:
         booking = booking_service.get_booking_by_id(booking_id)
         return booking
-    except KeyError:
-        raise HTTPException(status_code=404, detail=f"Booking with id={booking_id} not found")
+    except KeyError as e:
+        raise HTTPException(status_code=404, detail=str(e))
