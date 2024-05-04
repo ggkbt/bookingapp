@@ -30,6 +30,8 @@ def book_room(room_id: UUID, booking_data: BookRoomRequest, room_service: RoomSe
     try:
         room = room_service.book_room(room_id, booking_data.start_date, booking_data.end_date)
         return room
+    except KeyError as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 

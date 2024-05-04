@@ -7,7 +7,7 @@ from datetime import date
 
 from room_service.models.room import Room
 
-base_url = 'http://localhost:8001/api/'
+base_url = 'http://localhost:8001/api'
 
 
 @pytest.fixture(scope='session')
@@ -22,8 +22,8 @@ def second_room_data() -> tuple[UUID, str]:
 
 def test_add_demo_rooms() -> None:
     response = requests.post(f'{base_url}/rooms/add_demo')
-    rooms = [Room.model_validate(r) for r in response.json()]
     assert response.status_code == 200
+    rooms = [Room.model_validate(r) for r in response.json()]
     assert len(rooms) == 5
 
 
