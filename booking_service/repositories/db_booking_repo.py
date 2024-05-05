@@ -1,4 +1,5 @@
 # /booking_service/repositories/db_booking_repo.py
+
 import traceback
 from datetime import date
 from uuid import UUID
@@ -30,6 +31,16 @@ class BookingRepo:
         if booking is None:
             raise KeyError
         return self._map_to_model(booking)
+
+    def delete_booking_by_id(self, booking_id: UUID):
+        try:
+            booking = self.db.query(DBBooking).filter(DBBooking.id == booking_id).one()
+            self.db.delete(booking)
+            self.db.commit()
+            return True
+        except:
+            traceback.print_exc()
+            raise KeyError(f'Booking with id={id} not found')
 
     def create_booking(self, id: UUID, room_id: UUID, start_date: date, end_date: date) -> Booking:
         url = f"{booking_service.settings.settings.room_service_url}/rooms/{room_id}/book"

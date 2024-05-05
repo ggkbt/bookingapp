@@ -3,7 +3,7 @@
 from datetime import date
 from uuid import UUID
 
-from fastapi import Depends, HTTPException
+from fastapi import Depends
 
 from booking_service import rabbitmq
 from booking_service.models.booking import Booking, BookingStatuses
@@ -71,3 +71,6 @@ class BookingService:
         if not booking:
             raise ValueError(f'Booking with id={booking_id} not found')
         return booking
+
+    def delete_booking_by_id(self, booking_id: UUID):
+        self.booking_repo.delete_booking_by_id(booking_id)

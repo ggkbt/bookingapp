@@ -13,6 +13,10 @@ class Settings(BaseSettings):
     postgres_port: str
     postgres_database: str
     service_port: str
+    keycloak_url: str
+    keycloak_client_id: str
+    keycloak_realm: str
+    keycloak_client_secret: str
 
     model_config = SettingsConfigDict(env_file='bookings.env')
 

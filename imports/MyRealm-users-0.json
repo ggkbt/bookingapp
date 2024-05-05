@@ -1,0 +1,92 @@
+{
+  "realm" : "MyRealm",
+  "users" : [ {
+    "id" : "6cfe375e-c327-4a2d-a9c3-032d3d13c220",
+    "username" : "admin",
+    "firstName" : "George",
+    "lastName" : "Kurbatov",
+    "email" : "gg.kurbatov@gmail.com",
+    "emailVerified" : true,
+    "createdTimestamp" : 1714878664611,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "a88fb7b1-ec61-4f71-82ae-bcbcd0e513e5",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1714878678114,
+      "secretData" : "{\"value\":\"PCiRR6g9Ajoz879e9TWyems6pvWKNLWjPW1c4U+w8aX8cmhyJ4RlB02kpF8o22HfQC5vp8rBKOlc9upOzIIErA==\",\"salt\":\"JYAwi976hWXeVhuq0djC3w==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-myrealm" ],
+    "clientRoles" : {
+      "booking-service" : [ "manager", "admin" ],
+      "room-service" : [ "admin", "manager" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "11734b3c-1c98-4b88-95ea-77198312489f",
+    "username" : "manager",
+    "firstName" : "George",
+    "lastName" : "Merkulov",
+    "email" : "manager@example.com",
+    "emailVerified" : true,
+    "createdTimestamp" : 1714878786723,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "42b7967a-fe0e-450d-99d6-b3578a9e9d2a",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1714878797723,
+      "secretData" : "{\"value\":\"ky2CO++C9rlYi3Wf0ZSdZYTc+x+H2a4l8K/LmZaH9vjTnly9aDVi9/DztoFpU7lUoXNSBrMLr9rCuG1y/Cpg1Q==\",\"salt\":\"dGYK8njxJzSKuzUnuweCEA==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-myrealm" ],
+    "clientRoles" : {
+      "booking-service" : [ "manager" ],
+      "room-service" : [ "manager" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "97dd4a6f-5ab2-46aa-98a9-004ab6f58b23",
+    "username" : "service-account-booking-service",
+    "emailVerified" : false,
+    "createdTimestamp" : 1714860870792,
+    "enabled" : true,
+    "totp" : false,
+    "serviceAccountClientId" : "booking-service",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-myrealm" ],
+    "clientRoles" : {
+      "booking-service" : [ "uma_protection" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "340aecaa-344a-4467-94c6-b8bef5cde431",
+    "username" : "service-account-room-service",
+    "emailVerified" : false,
+    "createdTimestamp" : 1714860907947,
+    "enabled" : true,
+    "totp" : false,
+    "serviceAccountClientId" : "room-service",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-myrealm" ],
+    "clientRoles" : {
+      "room-service" : [ "uma_protection" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}

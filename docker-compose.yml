@@ -1,6 +1,24 @@
-version: "3.10"
+version: "3.9"
 
 services:
+  keycloak:
+    volumes:
+      - ./imports:/opt/jboss/keycloak/imports
+    image: quay.io/keycloak/keycloak
+    container_name: keycloak
+    ports:
+      - "8080:8080"
+    network_mode: "bridge"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: Pa55w0rd
+    command:
+      - "-Dkeycloak.migration.action=import"
+      - "-Dkeycloak.migration.provider=dir"
+      - "-Dkeycloak.migration.dir=/opt/jboss/keycloak/imports/"
+      - "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
+      - start-dev
+
   booking_service:
     build:
       context: .
@@ -20,6 +38,10 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DATABASE=booking_service
       - SERVICE_PORT=8000
+      - KEYCLOAK_URL=http://172.17.0.1:8080/
+      - KEYCLOAK_CLIENT_ID=booking-service
+      - KEYCLOAK_REALM=MyRealm
+      - KEYCLOAK_CLIENT_SECRET=**********
 
   room_service:
     build:
