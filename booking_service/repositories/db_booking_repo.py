@@ -29,7 +29,7 @@ class BookingRepo:
     def get_booking_by_id(self, id: UUID) -> Booking:
         booking = self.db.query(DBBooking).filter(DBBooking.id == id).first()
         if booking is None:
-            raise KeyError
+            raise KeyError(f'Booking with id={id} not found')
         return self._map_to_model(booking)
 
     def delete_booking_by_id(self, booking_id: UUID):
@@ -40,7 +40,7 @@ class BookingRepo:
             return True
         except:
             traceback.print_exc()
-            raise KeyError(f'Booking with id={id} not found')
+            raise KeyError(f'Booking with id={booking_id} not found')
 
     def create_booking(self, id: UUID, room_id: UUID, start_date: date, end_date: date) -> Booking:
         url = f"{booking_service.settings.settings.room_service_url}/rooms/{room_id}/book"
