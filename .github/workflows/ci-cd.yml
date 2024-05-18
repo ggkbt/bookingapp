@@ -119,6 +119,7 @@ jobs:
             POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
             POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
             POSTGRES_DATABASE=${{ secrets.POSTGRES_BOOKING_DATABASE }}
+            SERVICE_PORT=8080
       - name: Deploy room-service serverless container
         uses: yc-actions/yc-sls-container-deploy@v1
         with:
@@ -135,3 +136,4 @@ jobs:
             POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
             POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
             POSTGRES_DATABASE=${{ secrets.POSTGRES_ROOM_SERVICE_DATABASE }}
+            SERVICE_PORT=8080
